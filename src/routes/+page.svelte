@@ -1,59 +1,31 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+  import { onMount } from 'svelte';
+  import { readable, writable } from 'svelte/store';
+
+  // Import any additional components or resources you need
+
+  // Store for user query and OpenAI response
+  let userQuery = writable('');
+  let openAIResponse = readable('', set => {
+    // Fetch OpenAI response based on user query and update the store
+    // Replace this with your actual OpenAI integration code
+    const mockResponse = "Hello! I'm the Township Small Business Chatbot. How can I assist you today?";
+    set(mockResponse);
+  });
+
+  // Function to handle user query submission
+  const submitQuery = async () => {
+    // Perform any necessary processing or API calls for user query
+    // For this example, we'll just update the userQuery store
+    userQuery.set(userQueryValue);
+  };
+
+  // Initialize OpenAI response on component mount
+  onMount(() => {
+    openAIResponse.subscribe(response => {
+      // Update UI with OpenAI response
+      // You can use the response to display it in the UI
+    });
+  });
 </script>
 
-<svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
-
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>
